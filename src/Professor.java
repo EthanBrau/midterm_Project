@@ -1,17 +1,18 @@
-
+//Ethan Brau implementations
 import java.util.*;
 
+
 public class Professor {
-    int professorID;
-    String firstName;
-    String lastName;
-    List<Integer> advisee;
-    List<String> courses;
-    int ratemyProfScore;
-    List<Integer> teachingSchedule;
-    boolean onLeave;
-    boolean assistant;
-    boolean visiting;
+    public int professorID;
+    public String firstName;
+    public String lastName;
+    public List<Integer> advisee;
+    public List<String> courses;
+    public List<Integer> ratemyProfScore;
+    public List<Integer> teachingSchedule;
+    public boolean onLeave;
+    public boolean assistant;
+    public boolean visiting;
 
     //consructor
     public Professor(int professorID, String firstName, String lastName) {
@@ -66,19 +67,24 @@ public class Professor {
         onLeave = true;
     }
 
-    public void checkOnleave() {
-        if (onLeave)  ;
-
+    public String checkOnleave() {
+        if (onLeave) {
+            return this.firstName + " " + this.lastName +" is currently on leave";
+        }
+        else {
+            return this.firstName + " " + this.lastName +" is not on leave";
+        }
     }
 
 
 
     public static void main(String[] args) {
-    Professor prof1 = new Professor(0001, "John", "Doe");
-    System.out.println(prof1.getProfessorID());
-    System.out.println(prof1.getProfessorName());
-    prof1.addCourse("Java");
-    prof1.addCourse("Python");
-    System.out.println(prof1.getCourses());
+        Professor prof1 = new Professor(0001, "John", "Doe");
+        System.out.println(prof1.getProfessorID());
+        System.out.println(prof1.getProfessorName());
+        prof1.addCourse("Java");
+        prof1.addCourse("Python");
+        System.out.println(prof1.getCourses());
     }
 }
+
