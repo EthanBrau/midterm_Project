@@ -24,7 +24,7 @@ public class Course {
     int maxSize;
     int credits;
     private List<Integer> labSections;
-    private CourseSatisfaction satisfaction;
+    CourseSatisfaction satisfaction;
 
 
     static final int MAX = 1000000000;

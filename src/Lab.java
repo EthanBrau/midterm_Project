@@ -15,11 +15,10 @@ public class Lab extends Course {
     private int linkedClassID;
     
 
-    public Lab(List<Integer> prereq, String name, int time, List<Integer> students,
+    public Lab(List<Course> prerequisites, String name, int time, List<Student> students,
                String department, Professor professor, String semester,
-               int maxSize, List<Integer> labSections, List<Integer> ta, int linkedClassID) {
-        super(prereq, name, time, students, department, professor,
-                true, semester, maxSize, labSections);
+               int maxSize, List<Integer> labSections, List<Integer> ta, int linkedClassID, CourseSatisfaction satisfaction) {
+        super(prerequisites,name,time,students,department,professor, true, semester, maxSize, labSections, maxSize,satisfaction);
         this.ta = ta;
         this.linkedClassID = linkedClassID;
     }
