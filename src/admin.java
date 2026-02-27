@@ -32,12 +32,12 @@ public class Admin {
 
     public void removeClass(int id, String time) {
         // be able to delete a class from the class database
-        System.out.println("Remove class ID: " + id)
+        System.out.println("Remove class ID: " + id);
     }
 
     public void changeRequirement(int id, String value) {
         // update major or graduation requirements
-        System.out.println("Changing requirement for ID " + id + " to " + value)
+        System.out.println("Changing requirement for ID " + id + " to " + value);
     }
 
     public void reviewProfessor(int id) {
@@ -46,6 +46,6 @@ public class Admin {
     }
 
     // getters and setters
-    public int getAdminId() {return AdminId; }
+    public int getAdminId() {return adminId; }
     public String getFullName() {return firstName + " " + lastName; }
 }
