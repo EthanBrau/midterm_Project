@@ -18,7 +18,7 @@ public class Student {
     ArrayList<Integer> major; // major id, the default value that shouldn't be assigned to a major is 0
     ArrayList<Integer> minor; // minor id the default value that shouldn't be assigned to a minor is 0
     int currentCredits;
-    ArrayList<Integer> schedule;
+    ArrayList<Course> schedule;
     ArrayList<Integer> allCompletedClasses;
     ArrayList<String> graduationRequirements;
     int graduationCreditRequirements;
@@ -90,9 +90,9 @@ public class Student {
     adds a course (based off the course id to find the course object) to your
     arrayList schedule. it also updates the current credits you have for the semester.
      */
-    private void addCourseToSchedule(int courseID){
-        schedule.addLast(courseID);
-        currentCredits = currentCredits + Course.getCredits(courseID);
+    private void addCourseToSchedule(Course course){
+        schedule.addLast(course);
+        currentCredits = currentCredits + course.getCredits();
     }
 
     /*
@@ -100,10 +100,10 @@ public class Student {
     it also updates the current Credits, and it will print out a string to tell you if you
     do not have the course in your schedule.
      */
-    private void removeCourseFromSchedule(int courseID){
-        if (schedule.contains(courseID)){
-            schedule.remove(schedule.get(courseID));
-            currentCredits = currentCredits - Course.getCredits(courseID);
+    private void removeCourseFromSchedule(Course course){
+        if (schedule.contains(course)){
+            schedule.remove(schedule.get(course));
+            currentCredits = currentCredits - course.getCredits();
         } else{
             System.out.println("The course you are trying to remove is not in your schedule");
         }
