@@ -1,7 +1,6 @@
 import java.sql.Array;
 import java.util.*;
-//import Professor;
-//import Course;
+
 
 
 
@@ -84,6 +83,7 @@ public class Student {
      */
     private void addAdvisor(int AdvisorID){
         advisor.add(AdvisorID);
+        //needs to send to professor to add you as an advisee?
     }
 
     /*
@@ -102,7 +102,7 @@ public class Student {
      */
     private void removeCourseFromSchedule(Course course){
         if (schedule.contains(course)){
-            schedule.remove(schedule.get(course));
+            schedule.remove(course);
             currentCredits = currentCredits - course.getCredits();
         } else{
             System.out.println("The course you are trying to remove is not in your schedule");
@@ -110,26 +110,28 @@ public class Student {
     }
 
     /*
-
+    sends a request to the department through the departmentID and the MajorID
+    to add the major to your major ArrayList
      */
-    private void requestMajor(int MajorID){
-        req = department.getMajorRequirements(MajorID);
+    private void requestMajor(int DepartmentID, Degree degree, int MajorID){
+        Collection<?> req = List.of(degree.getRequiredClasses());
         if (allCompletedClasses.containsAll(req)){
+            Department.DepartmentID.applyForMajor(MajorID);
             System.out.println("You have sucessfully requested a major");
-            department.applyForMajor(MajorID);
         } else{
             System.out.println("You have not completed the required classes for this major");
         }
     }
 
     /*
-
+    sends a request to the department through the departmentID and minorID to add the minor
+    to your minor ArrayList
      */
-    private void requestMinor(int MinorID){
-        req = department.getMinorRequirements(MinorID);
+    private void requestMinor(int DepartmentID,Degree degree, int MinorID){
+        Collection<Course> req = List.of(degree.getRequiredClasses());
         if (allCompletedClasses.containsAll(req)){
             System.out.println("You have sucessfully requested a minor");
-            department.applyForMajor(MinorID);
+            Department.DepartmentID.applyForMajor(MinorID);
         } else{
             System.out.println("You have not completed the required classes for this minor");
         }
@@ -207,7 +209,30 @@ public class Student {
 
 
     public static void main(String[] args){
+        List<Student> students = List.of();
         Student stu = new Student("Stu", "Pid", 001);
+        Professor louis = new Professor(001, "louis", "yu");
+        Course chem = new Course(null, "chemistry", 9, students, "MCS", louis, false, "fall", 30, null, 4,CourseSatisfaction.QUANT);
+        Degree compSci = new Degree(true,"computer science", 001, true, false, null);
+        System.out.println(stu);
+        System.out.println(stu.enrollmentStatus);
+        stu.canIGraduate();
+        stu.addCourseToSchedule(chem);
+        System.out.println(stu.schedule);
+        stu.removeCourseFromSchedule(chem);
+        stu.addAdvisor(001);
+        stu.changeEnrollmentStatus();
+        stu.changeEnrollmentStatus();
+        stu.changeOnCampusStatus();
+        stu.changeOnCampusStatus();
+        stu.graduate();
+        //these 2 arent implemented yet
+        //stu.requestMajor(compSci);
+        //stu.requestMinor();
+        stu.rateProfessor(5,louis);
+        Professor.getProfessorRating(louis);
+        stu.register();
+
 
     }
 
