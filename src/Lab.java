@@ -11,15 +11,15 @@
 import java.util.List;
 
 public class Lab extends Course {
-    private List<Integer> ta; // List of TA IDs
+    private List<Student> TA;
     private int linkedClassID;
     
 
     public Lab(List<Course> prerequisites, String name, int time, List<Student> students,
                String department, Professor professor, String semester,
-               int maxSize, List<Integer> labSections, List<Integer> ta, int linkedClassID, CourseSatisfaction satisfaction) {
-        super(prerequisites,name,time,students,department,professor, true, semester, maxSize, labSections, maxSize,satisfaction);
-        this.ta = ta;
+               int maxSize, List<Integer> labSections, List<Student> TA, int linkedClassID, int credits, CourseSatisfaction satisfaction) {
+        super(prerequisites,name,time,students,department,professor, semester, maxSize, labSections, credits,satisfaction);
+        this.TA = TA;
         this.linkedClassID = linkedClassID;
     }
 

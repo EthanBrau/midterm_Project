@@ -13,25 +13,24 @@ import java.util.*;
 
 public class Course {
     private int id;
-    List<Course> prerequisites;
-    String name;
+    private List<Course> prerequisites;
+    private String name;
     private int time;
     private List<Student> students;
-    String department;
-    Professor professor;
-    boolean hasLab;
-    String semester;
-    int maxSize;
-    int credits;
+    private String department;
+    private Professor professor;
+    private String semester;
+    private int maxSize;
+    private int credits;
     private List<Integer> labSections;
-    CourseSatisfaction satisfaction;
+    private  CourseSatisfaction satisfaction;
 
 
     static final int MAX = 1000000000;
     static final int MIN = 1000;
 
     public Course(List<Course> prereq, String name, int time, List<Student> students,
-                  String department, Professor professor, boolean hasLab,
+                  String department, Professor professor,
                   String semester, int maxSize, List<Integer> labSections, int credits, CourseSatisfaction satisfaction) {
 
         Random random = new Random();
@@ -42,10 +41,10 @@ public class Course {
         this.students = students;
         this.department = department;
         this.professor = professor;
-        this.hasLab = hasLab;
         this.semester = semester;
         this.maxSize = maxSize;
         this.labSections = labSections;
+        this.credits = credits;
         this.satisfaction = satisfaction;
     }
 
@@ -53,5 +52,13 @@ public class Course {
         return this.credits;
     }
     public  CourseSatisfaction getSatisfaction() {return this.satisfaction;}
+
+    public int getId() {
+        return this.id;
+    }
+
+    public boolean hasLab() {
+        return this instanceof Lab;
+    }
 }
 

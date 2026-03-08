@@ -14,7 +14,6 @@ class DegreeTest {
                 new ArrayList<>(),
                 "CSCI",
                 new Professor(1, "Test", "Professor"),
-                false,
                 "Fall 2026",
                 30,
                 new ArrayList<>(),

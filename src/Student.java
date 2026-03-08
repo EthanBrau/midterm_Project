@@ -212,7 +212,7 @@ public class Student {
         List<Student> students = List.of();
         Student stu = new Student("Stu", "Pid", 001);
         Professor louis = new Professor(001, "louis", "yu");
-        Course chem = new Course(null, "chemistry", 9, students, "MCS", louis, false, "fall", 30, null, 4,CourseSatisfaction.QUANT);
+        Course chem = new Course(null, "chemistry", 9, students, "MCS", louis, "fall", 30, null, 4,CourseSatisfaction.QUANT);
         Degree compSci = new Degree(true,"computer science", 001, true, false, null);
         System.out.println(stu);
         System.out.println(stu.enrollmentStatus);
