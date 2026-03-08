@@ -1,3 +1,13 @@
+/**
+ * File: CourseTest.java
+ * Description: Course code for Lab subClass UML diagram for group midterm (Gustavus
+ *              Registration System)
+ *
+ * @author  Junior Opoku-Ansah (junioro@gustavus.edu)
+ * @version 1.0
+ * @since   2026-02-19
+ */
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
