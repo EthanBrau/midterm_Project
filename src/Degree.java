@@ -1,3 +1,6 @@
+//David Zhang
+
+
 public class Degree {
     private boolean requiredToGrad;
     private String name;
