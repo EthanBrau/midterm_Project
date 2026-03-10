@@ -37,7 +37,7 @@ public class Department {
             return;
         }
 
-        course.semester = semester;
+        course.setSemester(semester);
         classesOffered.add(course);
     }
 
@@ -59,6 +59,17 @@ public class Department {
         // makes it so no duplicates allowed
         if (!staff.contains(profID)) {
             staff.add(profID);
+        }
+    }
+    /* for usage of deptID outside department class */
+    public int getDeptID() {
+        return deptID;
+    }
+
+    public void applyForMajor(int degreeID) {
+        // makes it so no duplicates allowed
+        if (!degrees.contains(degreeID)) {
+            degrees.add(degreeID);
         }
     }
 }

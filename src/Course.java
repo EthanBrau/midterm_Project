@@ -60,5 +60,15 @@ public class Course {
     public boolean hasLab() {
         return this instanceof Lab;
     }
+
+    /* added setter and getter for my department class */
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public String getSemester() {
+        return this.semester;
+    }
+
 }
 

@@ -113,10 +113,10 @@ public class Student {
     sends a request to the department through the departmentID and the MajorID
     to add the major to your major ArrayList
      */
-    private void requestMajor(int DepartmentID, Degree degree, int MajorID){
+    private void requestMajor(Department department, Degree degree, int MajorID){
         Collection<?> req = List.of(degree.getRequiredClasses());
         if (allCompletedClasses.containsAll(req)){
-            Department.DepartmentID.applyForMajor(MajorID);
+            department.applyForMajor(MajorID);
             System.out.println("You have sucessfully requested a major");
         } else{
             System.out.println("You have not completed the required classes for this major");
@@ -127,11 +127,11 @@ public class Student {
     sends a request to the department through the departmentID and minorID to add the minor
     to your minor ArrayList
      */
-    private void requestMinor(int DepartmentID,Degree degree, int MinorID){
+    private void requestMinor(Department department,Degree degree, int MinorID){
         Collection<Course> req = List.of(degree.getRequiredClasses());
         if (allCompletedClasses.containsAll(req)){
             System.out.println("You have sucessfully requested a minor");
-            Department.DepartmentID.applyForMajor(MinorID);
+            department.applyForMajor(MinorID);
         } else{
             System.out.println("You have not completed the required classes for this minor");
         }
