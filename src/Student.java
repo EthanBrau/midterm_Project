@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.util.*;
 
 
@@ -25,7 +24,7 @@ public class Student {
     Boolean isGraduated;
     Boolean enrollmentStatus;// will be true if fulltime student, false if parttime
     Boolean onCampus;
-    ArrayList<Integer> advisor;
+    int advisor;
 
     /*
     Constructor for student class
@@ -55,7 +54,7 @@ public class Student {
         isGraduated = false;
         enrollmentStatus = true;
         onCampus = true;
-        advisor = new ArrayList<>();
+        advisor = 0;
 
     }
 
@@ -69,20 +68,87 @@ public class Student {
                 "Graduation Year: " + gradYear + " Total Completed Credits: " + (128 - graduationCreditRequirements);
     }
 
+    Integer getGradYear(){
+        return this.gradYear;
+    }
+
+    Integer getCurrentCredits(){
+        return this.currentCredits;
+    }
+
+    List<Course> getSchedule(){
+        return this.schedule;
+    }
+
+    List<String> getGraduationRequirements(){
+        return this.graduationRequirements;
+    }
+
+    List<Integer> getCompletedClasses(){
+        return this.allCompletedClasses;
+    }
+
+    Boolean getEnrollmentStatus(){
+        return this.enrollmentStatus;
+    }
+
+    Integer getMyAdvisor(){
+        return this.advisor;
+    }
+
+    Boolean getOncampusStatus(){
+        return this.onCampus;
+    }
+
+    String getFirstName(){
+        return this.firstName;
+    }
+
+    void setFirstName(String FirstName){
+        this.firstName = FirstName;
+    }
+
+    String getLastName(){
+        return this.lastName;
+    }
+
+    String setLastName(String LastName){
+        return this.lastName = LastName;
+    }
+
+    Integer getStudentIDNumber(){
+        return this.studentID;
+    }
+
+    List<Integer> getMyMajor(){
+        return this.major;
+    }
+
+    List<Integer> getMyMinor(){
+        return this.minor;
+    }
+
+    int getGraduationCreditsRemaining(){
+        return graduationCreditRequirements;
+    }
+
+    Boolean getIsGraduatedStatus(){
+        return this.isGraduated;
+    }
 
     /*
     Updates the rate my professor score in the professor class. this is based off of the inputted
     professor object and the rating you want to give them
      */
-    private void rateProfessor(int rating, Professor professor){
-        professor.rateProfessor(rating);
+    void rateProfessor(int rating, Professor professor){
+        professor.rateProf(rating);
     }
 
     /*
     this will add an advisor to your advisor list.
      */
-    private void addAdvisor(int AdvisorID){
-        advisor.add(AdvisorID);
+    void addAdvisor(int ProfessorID){
+        this.advisor = ProfessorID;
         //needs to send to professor to add you as an advisee?
     }
 
@@ -90,7 +156,7 @@ public class Student {
     adds a course (based off the course id to find the course object) to your
     arrayList schedule. it also updates the current credits you have for the semester.
      */
-    private void addCourseToSchedule(Course course){
+    void addCourseToSchedule(Course course){
         schedule.addLast(course);
         currentCredits = currentCredits + course.getCredits();
     }
@@ -100,7 +166,7 @@ public class Student {
     it also updates the current Credits, and it will print out a string to tell you if you
     do not have the course in your schedule.
      */
-    private void removeCourseFromSchedule(Course course){
+    void removeCourseFromSchedule(Course course){
         if (schedule.contains(course)){
             schedule.remove(course);
             currentCredits = currentCredits - course.getCredits();
@@ -112,31 +178,36 @@ public class Student {
     /*
     sends a request to the department through the departmentID and the MajorID
     to add the major to your major ArrayList
-     */
-    private void requestMajor(int DepartmentID, Degree degree, int MajorID){
-        Collection<?> req = List.of(degree.getRequiredClasses());
-        if (allCompletedClasses.containsAll(req)){
-            Department.DepartmentID.applyForMajor(MajorID);
-            System.out.println("You have sucessfully requested a major");
-        } else{
-            System.out.println("You have not completed the required classes for this major");
-        }
-    }
 
+    Request spots for these functions requestMajor and requestMinor
+    never got added to department so i can really use these functions,
+    but i think they would be useful ones to have in the registration system
+
+     */
+//    private void requestMajor(int DepartmentID, Degree degree, int MajorID){
+//        Collection<?> req = List.of(degree.getRequiredClasses());
+//        if (allCompletedClasses.containsAll(req)){
+//            Department.DepartmentID.applyForMajor(MajorID);
+//            System.out.println("You have sucessfully requested a major");
+//        } else{
+//            System.out.println("You have not completed the required classes for this major");
+//        }
+//    }
     /*
     sends a request to the department through the departmentID and minorID to add the minor
     to your minor ArrayList
      */
-    private void requestMinor(int DepartmentID,Degree degree, int MinorID){
-        Collection<Course> req = List.of(degree.getRequiredClasses());
-        if (allCompletedClasses.containsAll(req)){
-            System.out.println("You have sucessfully requested a minor");
-            Department.DepartmentID.applyForMajor(MinorID);
-        } else{
-            System.out.println("You have not completed the required classes for this minor");
-        }
-    }
+//    private void requestMinor(int DepartmentID,Degree degree, int MinorID){
+//        Collection<Course> req = List.of(degree.getRequiredClasses());
+//        if (allCompletedClasses.containsAll(req)){
+//            System.out.println("You have sucessfully requested a minor");
+//            Department.DepartmentID.applyForMajor(MinorID);
+//        } else{
+//            System.out.println("You have not completed the required classes for this minor");
+//        }
+//    }
 
+    
     /*
     this is  function a student can call to check and see if they can graduate.
     it will first check and see if the canGraduate variable is true, otherwise it looks
@@ -144,7 +215,7 @@ public class Student {
     things it will update the variable canGraduate and gives you a nice string.
     if you aren't eligible to graduate it will give you a string saying you cannot graduate
      */
-    private void canIGraduate(){
+    void canIGraduate(){
         if (canGraduate){
             System.out.println("Yes you can graduate!");
         } else if (graduationRequirements.isEmpty() && graduationCreditRequirements <= 0 && !major.isEmpty()){
@@ -160,7 +231,7 @@ public class Student {
     this function should be used once you have graduated to mark this student object that
     it is no longer in use, and can be deleted safely.
      */
-    private void graduate(){
+    void graduate(){
         if (canGraduate){
             isGraduated = true;
             System.out.println("Congratulations");
@@ -174,7 +245,7 @@ public class Student {
     this will change if you are a fulltime/parttime student. it will change to what it isn't
     currently
      */
-    private void changeEnrollmentStatus(){
+    void changeEnrollmentStatus(){
         if (enrollmentStatus = true){
             enrollmentStatus = false;
         }else{
@@ -186,7 +257,7 @@ public class Student {
     this will change if you are a onCampus status of the student. it will change to what it isn't
     currently. this should represent if they are living on campus or off campus.
      */
-    private void changeOnCampusStatus(){
+    void changeOnCampusStatus(){
         if (onCampus = true){
             onCampus = false;
         }else{
@@ -195,45 +266,7 @@ public class Student {
     }
 
 
-    /*
-    this will finalize the current courses that you have, update the variables like
-    if you can graduate, finished classes, credits/requirements to graduate.
-    ******need to have all classes (i think) to finish this one******
-     */
-    private void register(){
-
-    }
-
-
-
-
-
     public static void main(String[] args){
-        List<Student> students = List.of();
-        Student stu = new Student("Stu", "Pid", 001);
-        Professor louis = new Professor(001, "louis", "yu");
-        Course chem = new Course(null, "chemistry", 9, students, "MCS", louis, "fall", 30, null, 4,CourseSatisfaction.QUANT);
-        Degree compSci = new Degree(true,"computer science", 001, true, false, null);
-        System.out.println(stu);
-        System.out.println(stu.enrollmentStatus);
-        stu.canIGraduate();
-        stu.addCourseToSchedule(chem);
-        System.out.println(stu.schedule);
-        stu.removeCourseFromSchedule(chem);
-        stu.addAdvisor(001);
-        stu.changeEnrollmentStatus();
-        stu.changeEnrollmentStatus();
-        stu.changeOnCampusStatus();
-        stu.changeOnCampusStatus();
-        stu.graduate();
-        //these 2 arent implemented yet
-        //stu.requestMajor(compSci);
-        //stu.requestMinor();
-        stu.rateProfessor(5,louis);
-        Professor.getProfessorRating(louis);
-        stu.register();
-
-
     }
 
 }
