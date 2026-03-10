@@ -58,8 +58,7 @@ public class CourseTest {
 
     @Test
     void testIdIsWithinRange() {
-        // ID should be between MIN (1000) and MAX (1000000000)
-        int id = course.getId(); // you'll need to add getId()
+        int id = course.getId();
         assertTrue(id >= 1000 && id <= 1000000000);
     }
 
