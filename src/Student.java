@@ -1,7 +1,6 @@
 import java.sql.Array;
 import java.util.*;
-//import Professor;
-//import Course;
+
 
 
 
@@ -18,7 +17,7 @@ public class Student {
     ArrayList<Integer> major; // major id, the default value that shouldn't be assigned to a major is 0
     ArrayList<Integer> minor; // minor id the default value that shouldn't be assigned to a minor is 0
     int currentCredits;
-    ArrayList<Integer> schedule;
+    ArrayList<Course> schedule;
     ArrayList<Integer> allCompletedClasses;
     ArrayList<String> graduationRequirements;
     int graduationCreditRequirements;
@@ -84,15 +83,16 @@ public class Student {
      */
     private void addAdvisor(int AdvisorID){
         advisor.add(AdvisorID);
+        //needs to send to professor to add you as an advisee?
     }
 
     /*
     adds a course (based off the course id to find the course object) to your
     arrayList schedule. it also updates the current credits you have for the semester.
      */
-    private void addCourseToSchedule(int courseID){
-        schedule.addLast(courseID);
-        currentCredits = currentCredits + Course.getCredits(courseID);
+    private void addCourseToSchedule(Course course){
+        schedule.addLast(course);
+        currentCredits = currentCredits + course.getCredits();
     }
 
     /*
@@ -100,33 +100,35 @@ public class Student {
     it also updates the current Credits, and it will print out a string to tell you if you
     do not have the course in your schedule.
      */
-    private void removeCourseFromSchedule(int courseID){
-        if (schedule.contains(courseID)){
-            schedule.remove(schedule.get(courseID));
-            currentCredits = currentCredits - Course.getCredits(courseID);
+    private void removeCourseFromSchedule(Course course){
+        if (schedule.contains(course)){
+            schedule.remove(course);
+            currentCredits = currentCredits - course.getCredits();
         } else{
             System.out.println("The course you are trying to remove is not in your schedule");
         }
     }
 
     /*
-
+    sends a request to the department through the departmentID and the MajorID
+    to add the major to your major ArrayList
      */
-    private void requestMajor(int MajorID){
-        req = department.getMajorRequirements(MajorID);
+    private void requestMajor(Department department, Degree degree, int MajorID){
+        Collection<?> req = List.of(degree.getRequiredClasses());
         if (allCompletedClasses.containsAll(req)){
-            System.out.println("You have sucessfully requested a major");
             department.applyForMajor(MajorID);
+            System.out.println("You have sucessfully requested a major");
         } else{
             System.out.println("You have not completed the required classes for this major");
         }
     }
 
     /*
-
+    sends a request to the department through the departmentID and minorID to add the minor
+    to your minor ArrayList
      */
-    private void requestMinor(int MinorID){
-        req = department.getMinorRequirements(MinorID);
+    private void requestMinor(Department department,Degree degree, int MinorID){
+        Collection<Course> req = List.of(degree.getRequiredClasses());
         if (allCompletedClasses.containsAll(req)){
             System.out.println("You have sucessfully requested a minor");
             department.applyForMajor(MinorID);
@@ -207,7 +209,30 @@ public class Student {
 
 
     public static void main(String[] args){
+        List<Student> students = List.of();
         Student stu = new Student("Stu", "Pid", 001);
+        Professor louis = new Professor(001, "louis", "yu");
+        Course chem = new Course(null, "chemistry", 9, students, "MCS", louis, "fall", 30, null, 4,CourseSatisfaction.QUANT);
+        Degree compSci = new Degree(true,"computer science", 001, true, false, null);
+        System.out.println(stu);
+        System.out.println(stu.enrollmentStatus);
+        stu.canIGraduate();
+        stu.addCourseToSchedule(chem);
+        System.out.println(stu.schedule);
+        stu.removeCourseFromSchedule(chem);
+        stu.addAdvisor(001);
+        stu.changeEnrollmentStatus();
+        stu.changeEnrollmentStatus();
+        stu.changeOnCampusStatus();
+        stu.changeOnCampusStatus();
+        stu.graduate();
+        //these 2 arent implemented yet
+        //stu.requestMajor(compSci);
+        //stu.requestMinor();
+        stu.rateProfessor(5,louis);
+        Professor.getProfessorRating(louis);
+        stu.register();
+
 
     }
 
