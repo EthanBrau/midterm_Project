@@ -60,5 +60,13 @@ public class Course {
     public boolean hasLab() {
         return this instanceof Lab;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public List<Student> getStudents() {
+        return this.students;
+    }
 }
 
